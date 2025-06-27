@@ -3,32 +3,31 @@
 <head>
   <title>Login Form</title>
   <script>
-    function handleSubmit(event) {
-      event.preventDefault();
+  document.getElementById("loginForm").addEventListener("submit", function(e) {
+    e.preventDefault();
 
-      const data = {
-        fullname: document.getElementById("fullname").value,
-        username: document.getElementById("username").value,
-        password: document.getElementById("password").value
-      };
+    const data = {
+      fullname: document.getElementById("fullname").value,
+      username: document.getElementById("username").value,
+      password: document.getElementById("password").value
+    };
 
-      fetch("https://script.google.com/macros/s/AKfycbxJ7uI_FNWRgl_MPLaf9P6CJ5b4geUSG8lw5DmaAMC9zSe-T7FEf9GB1GJdR2JTgcxRqQ/exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(res => res.text())
-      .then(response => {
-        alert("Server Response: " + response);
-        document.getElementById("loginForm").reset();
-      })
-      .catch(error => {
-        alert("Error: " + error);
-      });
-    }
-  </script>
+    fetch("https://script.google.com/macros/s/AKfycbyb.../exec", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.text())
+    .then(result => {
+      alert("Server Response: " + result);
+    })
+    .catch(error => {
+      alert("Error: " + error);
+    });
+  });
+</script>
 </head>
 <body>
   <h2>Login Form</h2>
