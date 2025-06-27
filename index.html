@@ -40,20 +40,3 @@
   </form>
 </body>
 </html>
-[11:28 AM, 6/27/2025] sunilyogi: function doPost(e) {
-  try {
-    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var data = JSON.parse(e.postData.contents);
-
-    sheet.appendRow([
-      data.fullname,
-      data.username,
-      data.password,
-      new Date()
-    ]);
-
-    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
-  } catch (error) {
-    return ContentService.createTextOutput("Error: " + error).setMimeType(ContentService.MimeType.TEXT);
-  }
-}
